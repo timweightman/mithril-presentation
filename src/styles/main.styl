@@ -1,0 +1,264 @@
+@import 'normalizecss/normalize.css'
+@import 'prism/themes/prism-okaidia.css'
+
+$standard = #f5f5f5
+$emphatic = #5A5
+$angular = #d14
+$react = #268bd2
+$white = #FFF
+$black = #000
+$serif = georgia, times new roman, serif
+$sans-serif = helvetica, arial, arial, sans-serif
+$monospace = prestige elite std, consolas, courier new, monospace
+$standard-shadow = 0px 1px 0 rgba(85, 170, 85, 0.75)
+$emphatic-shadow = 0px 1px 0 rgba(0, 0, 0, 0.75)
+$emdash = '\2014'
+$quoteLeft = '\201C'
+$quoteRight = '\201D'
+
+*
+  margin: 0
+  padding: 0
+
+html
+  text-size-adjust: auto
+
+.bespoke-parent
+  font-size: 1.5em
+  background: $standard
+  color: $black
+  font-family: $sans-serif
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  overflow: hidden
+  text-align: center
+  transition: background 1s ease
+  background-position: 50% 50%
+
+.bespoke-scale-parent
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  pointer-events: none
+  z-index: 1
+  .bespoke-active
+    pointer-events: auto
+
+.bespoke-slide
+  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.75)
+  transition: opacity .3s ease
+  width: 720px
+  height: 480px
+  position: absolute
+  top: 50%
+  left: 50%
+  margin-left: -(@width / 2)
+  margin-top: -(@height / 2)
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  z-index: 1
+
+.bespoke-active
+  transition-delay: .3s
+
+.bespoke-inactive
+  opacity: 0
+  pointer-events: none
+
+.bespoke-backdrop
+  transition: opacity 1s ease
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  opacity: 0
+  &-active
+    opacity: 1
+
+.bespoke-progress-parent
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  height: .3vw
+  z-index: 1
+
+.bespoke-progress-bar
+  background: $white
+  position: absolute
+  top: 0
+  left: 0
+  height: 100%
+  transition: width 1s ease
+
+.bespoke-bullet
+  transition: opacity .3s ease
+
+.bespoke-bullet-inactive
+  opacity: 0
+
+strong
+  font-weight: 400
+
+h1 strong
+  font-weight: 600
+
+h1, h2, h3, p, li
+  padding-left: 20px
+  padding-right: 20px
+
+h1, h2, h3, p, li, pre
+  font-weight: 200
+
+h1
+  font-family: $serif
+  font-style: italic
+
+h1
+  margin: 0.17em 0
+
+h2
+  font-family: $sans-serif
+  font-style: normal
+  font-weight: normal
+  font-size: 1.1em
+  margin: 0.1em 0
+
+h3
+  font-style: normal
+  font-size: .6em
+  margin: 1.1em 0
+
+ul, ol
+  padding: 0
+  margin: 0
+  text-align: left
+
+li
+  list-style: none
+  margin: .2em
+  font-style: normal
+  transform: translateX(-6px)
+  &:before
+    content: $emdash
+    margin-right: 4px
+
+//pre
+//  background: none !important
+
+code
+  font-family: $monospace !important
+  font-style: normal
+  font-weight: 200 !important
+  text-align: left
+
+a
+  color: currentColor
+  text-decoration: none
+  border-bottom: 1px solid currentColor
+
+.emphatic
+  background: $emphatic
+
+// OVERRIDES===================================
+.bespoke-slide
+  text-shadow: $standard-shadow;
+  text-transform: lowercase;
+
+h1
+  font-style: normal;
+
+h2
+  font-size: 1.25em;
+
+strong
+  font-weight: bold;
+
+code[class*="language-"],
+pre[class*="language-"]
+  font-size: .8em;
+  line-height: 1;
+  text-shadow: none;
+  text-transform: none;
+
+ul li h1,
+ul li h2,
+ul li h3
+  display: inline;
+  vertical-align: middle;
+
+table
+  margin-top: 1em;
+
+  th, td
+    line-height: 1.5;
+    padding: 5px;
+    border-left: 2px solid $standard;
+    border-right: 2px solid $standard;
+
+  th
+    font-weight: bold
+
+  td
+    font-size: 1.5em;
+
+.emphatic-text
+  color: $white;
+  text-shadow: $emphatic-shadow;
+
+.angular
+  @extends .emphatic-text;
+  background-color: $angular;
+
+.react
+  @extends .emphatic-text;
+  background-color: $react;
+
+.mithril
+  @extends .emphatic-text;
+  background-color: $emphatic
+
+.code-heading code
+  font-size: 2.5em;
+
+.quote
+  font-family: $serif;
+  font-size: 1.5em;
+  margin-top: .75em;
+  margin-bottom: .75em;
+
+  &:before,
+  &:after
+    color: $emphatic;
+    text-shadow: $emphatic-shadow;
+    font-size: 2em;
+    line-height: .5;
+    position: relative;
+    top: .5em;
+
+  &:before
+    content: $quoteLeft;
+    margin-right: 10px;
+
+  &:after
+    content: $quoteRight;
+    margin-left: 10px;
+
+.size-comparison
+  th, td
+    width: 33%;
+
+  .angular.size
+    font-size: (126 / 4)px;
+  .react.size
+    font-size: (122 / 4)px;
+  .mithril.size
+    font-size: (19 / 4)px;
