@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Mithril Framework</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css">
+  </head>
+  <body class="override">
+    <article>
+      <section>
+        <h1 class="bullet">Mithril</h1>
+      </section>
+      <section>
+        <ul>
+          <h1 class="bullet">Why?</h1>
+          <li>
+            <h2>Large, complex frameworks are common</h2>
+          </li>
+          <li>
+            <h2>Large, complex systems are common</h2>
+          </li>
+          <h1 class="bullet">But...</h1>
+          <li>
+            <h2>I like small, simple APIs</h2>
+          </li>
+          <li>
+            <h2>I like small, simple components</h2>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="bullet">agenda</h2>
+        <ul>
+          <li>
+            <h1>What is Mithril?</h1>
+          </li>
+          <li>
+            <h1>Why do I care?</h1>
+          </li>
+          <li>
+            <h1>Code please?</h1>
+          </li>
+          <li>
+            <h1>Demo time</h1>
+          </li>
+          <li>
+            <h1>Hiccups</h1>
+          </li>
+        </ul>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <h1 class="bullet">What is Mithril?</h1>
+      </section>
+      <section>
+        <h2 class="bullet quote">A Javascript Framework for Building Brilliant Applications</h2>
+        <h2 class="bullet quote">a client-side MVC framework</h2>
+        <h2 class="bullet quote">a tool to organize code in a way that is easy to think about and to maintain</h2>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <h1 class="bullet">Why do I care?</h1>
+      </section>
+      <section class="size-comparison">
+        <h2 class="bullet"><strong>Tiny</strong> Size</h2><small>* (latest standard minified downloads)</small>
+        <table>
+          <thead>
+            <tr>
+              <th class="angular">Angular
+                <p><small>(v1.3.16)</small></p>
+              </th>
+              <th class="react">React
+                <p><small>(v0.13.3)</small></p>
+              </th>
+              <th class="mithril">Mithril
+                <p><small>(v0.2.0)</small></p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="angular size">
+                <h2>126kb</h2>
+              </td>
+              <td class="react size">
+                <h2>122kb</h2>
+              </td>
+              <td class="mithril size">
+                <h2>19kb</h2>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2 class="bullet"><strong>Fast</strong></h2>
+        <h1 class="bullet">Virtual DOM diffing</h1>
+        <div class="bullet">
+          <h1>Smart re-drawing</h1><small><a href="https://lhorie.github.io/mithril/mithril.computation.html#how-auto-redrawing-works">How auto-redrawing works</a></small>
+        </div>
+      </section>
+      <section>
+        <h2 class="bullet"><strong>All</strong> the things</h2>
+        <h1 class="bullet">Components</h1>
+        <h1 class="bullet">Routing</h1>
+        <h1 class="bullet">AJAX</h1>
+        <h1 class="bullet">Promises</h1><small class="bullet">* (some caveats,  <a href="https://lhorie.github.io/mithril/mithril.deferred.html#differences-from-promises-a-">check the docs</a>)</small>
+      </section>
+      <section>
+        <h1 class="bullet"><a href="https://lhorie.github.io/mithril/mithril.html">High quality official docs</a></h1>
+        <div class="bullet">
+          <h2>Plus lots of examples on the </h2>
+          <h1><a href="http://lhorie.github.io/mithril-blog/">official blog</a></h1>
+        </div>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <pre class="code-heading"><code class="language-javascript">// Code please?
+</code></pre>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <h2>Components</h2>
+        <pre><code class="language-javascript">// home.js
+var m = require('mithril');
+
+module.exports = {
+  controller: function(args) {
+    return {
+      heading: 'Home'
+    };
+  },
+  view: function(ctrl, args) {
+    return m('div.home', [
+      m('h1', ctrl.heading)
+    ]);
+  }
+};
+</code></pre>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <h2>Routing</h2>
+        <pre><code class="language-javascript">// app.js
+var m = require('mithril');
+var home = require('components/home');
+var todos = require('components/todos');
+var todoItem = require('components/todoItem');
+
+// Routing does attempt to match in order
+m.route(document.querySelector('#app'), '/', {
+  '/': home,
+  '/todos': todos,
+  '/todos/:status': todoItem
+});
+</code></pre>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <h2>AJAX & Promises</h2>
+        <pre><code class="language-javascript">var m = require('mithril');
+
+var todosPromise = m.request({
+  method: 'GET',
+  url: '/api/todos',
+  initialValue: []
+});
+</code></pre>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <h2>Special Mention:</h2>
+        <h1>m.prop</h1>
+        <pre><code class="language-javascript">var m = require('mithril');
+
+function User(data) {
+  this.name = m.prop(data.name);
+}
+
+var user = new User({name: 'Tim'});
+JSON.stringify(user); // '{"name": "Tim"}'
+
+var userPromise = m.request({
+  method: 'GET',
+  url: 'api/users',
+  type: User
+}).then(function(users) {
+  console.log(users()); // [{name: 'Tim'}, {name:'Bob'}]
+});
+</code></pre>
+      </section>
+      <section>
+        <h1>Demo</h1>
+      </section>
+    </article>
+    <!--article
+    section
+      h1 Mithril
+      
+    section
+      h2 Keyboard Interaction
+      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a>
+      
+    section
+      h2 Touch Interaction
+      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a>
+      
+    section
+      h2 Responsive Slides
+      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
+      
+    section
+      h2 Bullet List
+      h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
+      ul
+        li Bullet 1
+        li Bullet 2
+        li Bullet 3
+        
+    section
+      h2 Syntax Highlighting
+      h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
+      pre
+        code.language-javascript.
+          bespoke.from('article', [
+            classes(),
+            keys(),
+            touch(),
+            bullets('li, .bullet')
+          ]);
+          
+    section(data-bespoke-hash='named-route')
+      h2 Named Route
+      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
+      p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.
+      
+    section.emphatic-text(data-bespoke-backdrop='emphatic')
+      h2 Emphatic Slide!
+      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-backdrop">bespoke-backdrop</a>
+      
+    section
+      h2.bullet Just the beginning...
+      br
+      ul
+        li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
+        li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
+        li Edit JavaScript in <em>'src/scripts/main.js'</em>
+      br
+      ul
+        li
+          strong Enjoy! :)
+          a(href='http://twitter.com/markdalgleish')  -@markdalgleish
+          
+    -->
+    <script src="build/build.js"></script>
+  </body>
+</html>
