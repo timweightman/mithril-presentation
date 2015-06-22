@@ -1,17 +1,30 @@
 @import 'normalizecss/normalize.css'
 @import 'prism/themes/prism-okaidia.css'
 
-$standard = #f5f5f5
-$emphatic = #5A5
-$angular = #d14
-$react = #268bd2
+$red = #d14
+$blue = #268bd2
+$green = #5A5
 $white = #FFF
 $black = #000
+$grey = #f5f5f5
+
+$standard = $grey
+$emphatic = $green
+$bad = $red
+$good = $green
+
+$angular = $red
+$react = $blue
+
 $serif = georgia, times new roman, serif
-$sans-serif = helvetica, arial, arial, sans-serif
+$sans-serif = helvetica, arial, sans-serif
 $monospace = prestige elite std, consolas, courier new, monospace
-$standard-shadow = 0px 1px 0 rgba(85, 170, 85, 0.75)
-$emphatic-shadow = 0px 1px 0 rgba(0, 0, 0, 0.75)
+
+$standard-shadow = 0px 1px 0 $green
+$emphatic-shadow = 0px 1px 0 $black
+$bad-shadow = 0px 1px 0 $red
+$good-shadow = 0px 1px 0 $green
+
 $emdash = '\2014'
 $quoteLeft = '\201C'
 $quoteRight = '\201D'
@@ -262,3 +275,26 @@ table
     font-size: (122 / 4)px;
   .mithril.size
     font-size: (19 / 4)px;
+
+li.bad, li.good
+  list-style-type: none;
+
+li.bad
+  text-shadow: $bad-shadow
+
+li.good
+  text-shadow: $good-shadow
+
+li.bad:before, li.good:before
+  font-size: 1.8em
+  font-weight: 200
+  vertical-align: sub
+  text-shadow: none;
+
+li.bad:before
+  content: $emdash
+  // color: $red
+
+li.good:before
+  content: '+'
+  // color: $green

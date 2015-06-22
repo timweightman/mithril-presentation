@@ -28,8 +28,8 @@ html
         ul
           li: h1 What is Mithril?
           li: h1 Why do I care?
-          li: h1 Code please?
-          li: h1 Demo time
+          li: h1 Code please.
+          li: h1 Live demo
           li: h1 Hiccups
       
       section.emphatic-text(data-bespoke-backdrop='emphatic')
@@ -95,17 +95,15 @@ html
       section.emphatic-text(data-bespoke-backdrop='emphatic')
         pre.code-heading
           code.language-javascript.
-            // Code please?
+            // Code please.
         
       section.emphatic-text(data-bespoke-backdrop='emphatic')
         h2 Components
         pre
           code.language-javascript.
-            // home.js
-            var m = require('mithril');
-            
-            module.exports = {
+            var homeComponent = {
               controller: function(args) {
+                // this.heading = 'Home';
                 return {
                   heading: 'Home'
                 };
@@ -121,38 +119,32 @@ html
         h2 Routing
         pre
           code.language-javascript.
-            // app.js
-            var m = require('mithril');
-            var home = require('components/home');
-            var todos = require('components/todos');
-            var todoItem = require('components/todoItem');
-          
-            // Routing does attempt to match in order
+            // Routing attempts to match in order, but
+            // I've found it to be pretty smart.
             m.route(document.querySelector('#app'), '/', {
               '/': home,
-              '/todos': todos,
-              '/todos/:status': todoItem
+              '/:param?anotherParam': home
             });
           
       section.emphatic-text(data-bespoke-backdrop='emphatic')
         h2 AJAX & Promises
         pre
           code.language-javascript.
-            var m = require('mithril');
-            
-            var todosPromise = m.request({
+            var promise = m.request({
               method: 'GET',
-              url: '/api/todos',
+              url: '/api/stuff',
               initialValue: []
             });
+            var anotherPromise = m.deferred().promise;
+            var everything = m.sync([promise, anotherPromise]);
+            
+            everything.then(...)
       
       section.emphatic-text(data-bespoke-backdrop='emphatic')
         h2 Special Mention:
         h1 m.prop
         pre
           code.language-javascript.
-            var m = require('mithril');
-            
             function User(data) {
               this.name = m.prop(data.name);
             }
@@ -160,74 +152,29 @@ html
             var user = new User({name: 'Tim'});
             JSON.stringify(user); // '{"name": "Tim"}'
             
-            var userPromise = m.request({
+            var users = m.prop([]);
+            m.request({
               method: 'GET',
-              url: 'api/users',
-              type: User
-            }).then(function(users) {
-              console.log(users()); // [{name: 'Tim'}, {name:'Bob'}]
-            });
+              url: 'api/users'
+            }).then(users);
       
       section
-        h1 Demo
+        h1 Live demo
         
-    //article
-
       section
-        h1 Mithril
-
-      section
-        h2 Keyboard Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a>
-
-      section
-        h2 Touch Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a>
-
-      section
-        h2 Responsive Slides
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
-
-      section
-        h2 Bullet List
-        h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
         ul
-          li Bullet 1
-          li Bullet 2
-          li Bullet 3
-
-      section
-        h2 Syntax Highlighting
-        h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
-        pre
-          code.language-javascript.
-            bespoke.from('article', [
-              classes(),
-              keys(),
-              touch(),
-              bullets('li, .bullet')
-            ]);
-
-      section(data-bespoke-hash='named-route')
-        h2 Named Route
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
-        p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.
-
+          h1.bullet Hiccups
+          li.bad: h2 Too much freedom?
+          li.good: h2 Need clear, well-defined patterns
+          li.good: h2 eslint / jshint &amp; jscs
+          li.bad: h2 Cross-project standards
+          li.bad: h2 Formatters, i18n, ...
+          li.good: h2 Good candidate for component library
+        
       section.emphatic-text(data-bespoke-backdrop='emphatic')
-        h2 Emphatic Slide!
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-backdrop">bespoke-backdrop</a>
-
-      section
-        h2.bullet Just the beginning...
-        br
-        ul
-          li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
-          li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
-          li Edit JavaScript in <em>'src/scripts/main.js'</em>
-        br
-        ul
-          li
-            strong Enjoy! :)
-            a(href='http://twitter.com/markdalgleish')  -@markdalgleish
+        h1 Questions?
+        pre.code-heading
+          code.language-javascript.
+            // Comments?
 
     script(src='build/build.js')
