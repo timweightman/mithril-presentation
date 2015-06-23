@@ -39,10 +39,10 @@
             <h1>Why do I care?</h1>
           </li>
           <li>
-            <h1>Code please?</h1>
+            <h1>Code please.</h1>
           </li>
           <li>
-            <h1>Demo time</h1>
+            <h1>Live demo</h1>
           </li>
           <li>
             <h1>Hiccups</h1>
@@ -113,16 +113,14 @@
         </div>
       </section>
       <section data-bespoke-backdrop="emphatic" class="emphatic-text">
-        <pre class="code-heading"><code class="language-javascript">// Code please?
+        <pre class="code-heading"><code class="language-javascript">// Code please.
 </code></pre>
       </section>
       <section data-bespoke-backdrop="emphatic" class="emphatic-text">
         <h2>Components</h2>
-        <pre><code class="language-javascript">// home.js
-var m = require('mithril');
-
-module.exports = {
+        <pre><code class="language-javascript">var homeComponent = {
   controller: function(args) {
+    // this.heading = 'Home';
     return {
       heading: 'Home'
     };
@@ -137,115 +135,76 @@ module.exports = {
       </section>
       <section data-bespoke-backdrop="emphatic" class="emphatic-text">
         <h2>Routing</h2>
-        <pre><code class="language-javascript">// app.js
-var m = require('mithril');
-var home = require('components/home');
-var todos = require('components/todos');
-var todoItem = require('components/todoItem');
-
-// Routing does attempt to match in order
+        <pre><code class="language-javascript">// Routing attempts to match in order, but
+// I've found it to be pretty smart.
 m.route(document.querySelector('#app'), '/', {
   '/': home,
-  '/todos': todos,
-  '/todos/:status': todoItem
+  '/:param?anotherParam': home
 });
 </code></pre>
       </section>
       <section data-bespoke-backdrop="emphatic" class="emphatic-text">
         <h2>AJAX & Promises</h2>
-        <pre><code class="language-javascript">var m = require('mithril');
-
-var todosPromise = m.request({
+        <pre><code class="language-javascript">var promise = m.request({
   method: 'GET',
-  url: '/api/todos',
+  url: '/api/stuff',
   initialValue: []
 });
+var anotherPromise = m.deferred().promise;
+var everything = m.sync([promise, anotherPromise]);
+
+everything.then(...)
 </code></pre>
       </section>
       <section data-bespoke-backdrop="emphatic" class="emphatic-text">
         <h2>Special Mention:</h2>
         <h1>m.prop</h1>
-        <pre><code class="language-javascript">var m = require('mithril');
-
-function User(data) {
+        <pre><code class="language-javascript">function User(data) {
   this.name = m.prop(data.name);
 }
 
 var user = new User({name: 'Tim'});
 JSON.stringify(user); // '{"name": "Tim"}'
 
-var userPromise = m.request({
+var users = m.prop([]);
+m.request({
   method: 'GET',
-  url: 'api/users',
-  type: User
-}).then(function(users) {
-  console.log(users()); // [{name: 'Tim'}, {name:'Bob'}]
-});
+  url: 'api/users'
+}).then(users);
 </code></pre>
       </section>
       <section>
-        <h1>Demo</h1>
+        <h1>Live demo</h1>
+      </section>
+      <section>
+        <ul>
+          <h1 class="bullet">Hiccups</h1>
+          <li class="bad">
+            <h2>Too much freedom?</h2>
+          </li>
+          <li class="good">
+            <h2>Need clear, well-defined patterns</h2>
+          </li>
+          <li class="good">
+            <h2>eslint / jshint &amp; jscs</h2>
+          </li>
+          <li class="bad">
+            <h2>Cross-project standards</h2>
+          </li>
+          <li class="bad">
+            <h2>Formatters, i18n, ...</h2>
+          </li>
+          <li class="good">
+            <h2>Good candidate for component library</h2>
+          </li>
+        </ul>
+      </section>
+      <section data-bespoke-backdrop="emphatic" class="emphatic-text">
+        <h1>Questions?</h1>
+        <pre class="code-heading"><code class="language-javascript">// Comments?
+</code></pre>
       </section>
     </article>
-    <!--article
-    section
-      h1 Mithril
-      
-    section
-      h2 Keyboard Interaction
-      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a>
-      
-    section
-      h2 Touch Interaction
-      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a>
-      
-    section
-      h2 Responsive Slides
-      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
-      
-    section
-      h2 Bullet List
-      h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
-      ul
-        li Bullet 1
-        li Bullet 2
-        li Bullet 3
-        
-    section
-      h2 Syntax Highlighting
-      h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
-      pre
-        code.language-javascript.
-          bespoke.from('article', [
-            classes(),
-            keys(),
-            touch(),
-            bullets('li, .bullet')
-          ]);
-          
-    section(data-bespoke-hash='named-route')
-      h2 Named Route
-      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
-      p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.
-      
-    section.emphatic-text(data-bespoke-backdrop='emphatic')
-      h2 Emphatic Slide!
-      h3 Powered by <a href="https://github.com/markdalgleish/bespoke-backdrop">bespoke-backdrop</a>
-      
-    section
-      h2.bullet Just the beginning...
-      br
-      ul
-        li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
-        li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
-        li Edit JavaScript in <em>'src/scripts/main.js'</em>
-      br
-      ul
-        li
-          strong Enjoy! :)
-          a(href='http://twitter.com/markdalgleish')  -@markdalgleish
-          
-    -->
     <script src="build/build.js"></script>
   </body>
 </html>
